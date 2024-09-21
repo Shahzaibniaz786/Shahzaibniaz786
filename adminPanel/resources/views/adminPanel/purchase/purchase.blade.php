@@ -26,7 +26,7 @@
                         </a>
                     </form>
                 </div>
-                <h4 class="page-title">Product</h4>
+                <h4 class="page-title">Purchase</h4>
             </div>
         </div>
     </div>
@@ -38,66 +38,137 @@
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-sm-5">
-                            Products List
+                            Purchase List
                         </div>
                         <div class="col-sm-7">
                             <div class="text-sm-end">
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#standard-modal">Add New Product</button>
+                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#standard-modal">Purchase list</button>
                             </div>
                         </div><!-- end col-->
                     </div>
 
-                    <div class="table-responsive">
-                        <table id="scroll-horizontal-datatable" class="table table-sm table-centered w-100 nowrap">
-                            <thead class="table-light">
-                                <tr>
+                    <div class="form">
+                        <form id="addProductForm" action="{{ route('Fetch.product') }}" method="post">
+                @csrf
+                <div class="modal-body">
+                    <div class="row">
+                            <div class="mb-3 col-lg-4">
+                                <label for="date" class="mb-2">Date</label>
+                                <input type="date" name="date" id="date" class="form-control @error('date') is-invalid @enderror" placeholder="Add date" value="{{ old('date') }}">
+                                @error('date')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3 col-lg-4">
+                                <label for="supplier_name" class="mb-2">Supplier name</label>
+                                <input type="text" name="supplier_name" id="supplier_name" class="form-control @error('supplier_name') is-invalid @enderror" placeholder="Add product"value="{{ old('supplier_name') }}">
+                                @error('supplier_name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            
+                            <div class="mb-3 col-lg-4">
+                               <label for="total_bill" class="mb-2">Total bill</label>
+                               <input type="number" name="total_bill" id="total_bill" class="form-control @error('total_bill') is-invalid @enderror" placeholder="0" value="{{ old('total_bill') }}">
+                               @error('total_bill')
+                               <div class="invalid-feedback">
+                                   {{ $message }}
+                               </div>
+                               @enderror
+                           </div>
 
-                                    <th>ID</th>
-                                    <th>code</th>
-                                    <th>Name</th>
-                                    <th>opening_stock</th>
-                                    <th style="width: 85px;">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @isset($products)
-                                @foreach($products as $product)
+                        </div>
 
-                                <tr>
-                                    <td>
-                                        {{ $product->id }}
-                                    </td>
+                        <div class="row">
+                            <div class="mb-3 col-lg-4">
+                               {{-- <label for="total_bill" class="mb-2">Adjustment</label> --}}
+                               <input type="hidden" name="adjustment" id="adjustment" class="form-control @error('adjustment') is-invalid @enderror" placeholder="Enter type" value="{{ old('adjustment') }}">
+                               @error('adjustment')
+                               <div class="invalid-feedback">
+                                   {{ $message }}
+                               </div>
+                               @enderror
+                           </div>
+                            <div class="mb-3 col-lg-4">
+                               <label for="total_bill" class="mb-2">Adjustment</label>
+                               <input type="number" name="adjustment" id="adjustment" class="form-control @error('adjustment') is-invalid @enderror" placeholder="0" value="{{ old('adjustment') }}">
+                               @error('adjustment')
+                               <div class="invalid-feedback">
+                                   {{ $message }}
+                               </div>
+                               @enderror
+                           </div>
+                            <div class="mb-3 col-lg-4">
+                               <label for="total_bill" class="mb-2">Net Payable</label>
+                               <input type="number" name="net_payable" id="net_payable" class="form-control @error('net_payable') is-invalid @enderror" placeholder="0" value="{{ old('net_payable') }}">
+                               @error('net_payable')
+                               <div class="invalid-feedback">
+                                   {{ $message }}
+                               </div>
+                               @enderror
+                           </div>
 
-                                    <td>
-                                        {{ $product->product_code }}
-                                    </td>
-                                    <td>
-                                        {{ $product->product_name }}
-                                    </td>
-                                    <td>
-                                        {{ $product->opening_stock }}
-                                    </td>
+                           <div class="row">
+                                <div class="mb-3 col-lg-10">
+                                    <label for="total_bill" class="mb-2">Select Product</label>
+                                    <select name="select_product" id="select_product" class="form-control @error('select_product') is-invalid @enderror"  value="{{ old('select_product') }}">
+                                        <option value="">Select product</option>
+                                        @foreach ($products as $product)
+                                        <option value="{{$product->id}}">{{$product->product_name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('select_product')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                
+                                <div class=" col-lg-2 d-flex align-self-center justify-content-end">
+                                    <button type="submit" class="btn btn-warning">Add Product</button>
+                                </div>
+                            </div>
 
-                                    <td class="table-action">
-                                    <a href="javascript:void(0)"  data-id="{{ $product->id }}" class="action-icon text-success" data-bs-toggle="modal" data-bs-target="#edit-modal"> <i class="mdi mdi-square-edit-outline"></i></a> 
-                                    <a href="{{ route('product.delete', $product->id) }}"><i class="mdi mdi-trash-can-outline"></i></a>
-                                    
-      
-                                      
-                                    </td>
-                                </tr>
-                                @endforeach
-                                @endisset
-                            </tbody>
-                        </table>
 
+
+                        </div>
+
+                        
+
+
+                </div>
+                
+            </form>
                     </div>
+
+                    
                 </div> <!-- end card-body-->
             </div> <!-- end card-->
         </div> <!-- end col -->
     </div>
 
-
+                    <div class="table-responsive">
+                        <table id="product-table" class="table table-sm table-centered w-100 nowrap">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Stock</th>
+                                    <th>Cost price</th>
+                                    <th>Qty</th>
+                                    <th>Total</th>
+                                    <th style="width: 85px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="product-table-body">
+                                <!-- Dynamically added products will appear here -->
+                            </tbody>
+                        </table>
+                    </div>
 
 
 
@@ -225,79 +296,7 @@
 
 
 
-{{-- modal for add supplier  --}}
 
- {{-- <div id="add_supplier" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="edit-modalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="edit-modalLabel">Add Supplier</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-                </div>
-                <form action="{{ route('add_supplier') }}" method="post">
-                    @csrf
-                    <input type="hidden" name="supplierId" id="supplier-id-field">
-                    <div class="modal-body">
-                        <div class="row mb-2">
-                            <div class="col-sm-6">
-                                <div class="mb-3">
-                                    <label for="example-input-normal" class="form-label">Supplier Name</label>
-                                    <input type="text" id="name" name="name" class="form-control">
-                                    @error('name')
-                                    <p class="text-danger mt-2">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="mb-3">
-                                    <label for="example-input-normal" class="form-label">Supplier Email</label>
-                                    <input type="text" id="email" name="email" class="form-control">
-                                    @error('email')
-                                    <p class="text-danger mt-2">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="mb-3">
-                                    <label for="example-input-normal" class="form-label">Phone</label>
-                                    <input type="text" id="phone" name="phone" class="form-control">
-                                    @error('phone')
-                                    <p class="text-danger mt-2">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="mb-3">
-                                    <label for="example-input-normal" class="form-label">Company Name <span>Optional</span></label>
-                                    <input type="text" id="company_name" name="company_name" class="form-control">
-                                    @error('company_name')
-                                    <p class="text-danger mt-2">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="mb-3">
-                                    <label for="example-input-normal" class="form-label">Address</label>
-                                    <input type="text" id="address" name="address" class="form-control">
-                                    @error('address')
-                                    <p class="text-danger mt-2">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
-                </form>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-    <!-- end row -->
-
-</div> --}}
 
 
 
@@ -343,6 +342,71 @@
         });
     });
 </script>
+
+<script>
+    // Set today's date as the value for the date input
+    document.addEventListener('DOMContentLoaded', function() {
+        const dateInput = document.getElementById('date');
+        const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+        dateInput.value = today;
+    });
+</script>
+
+<script>
+$(document).ready(function() {
+    $('#addProductForm').on('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Get the selected product ID
+        const selectedProductId = $('#select_product').val();
+        
+        // Perform an AJAX request to fetch the product details
+        $.ajax({
+            url: "{{ route('fetch.product.details') }}", // Route to fetch product details
+            method: 'POST',
+            data: {
+                product_id: selectedProductId,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                // Assuming response contains the product details
+                if (response.success) {
+                    const product = response.data;
+
+                    // Append the new row to the product table
+                    $('#product-table-body').append(`
+                        <tr>
+                            <td>${product.id}</td>
+                            <td>${product.name}</td>
+                            <td>${product.stock}</td>
+                            <td>${product.cost_price}</td>
+                            <td>${product.qty}</td>
+                            <td>${product.total}</td>
+                            <td>
+                                <button class="btn btn-danger" onclick="removeProduct(${product.id})">Remove</button>
+                            </td>
+                        </tr>
+                    `);
+                } else {
+                    // Handle error if product not found
+                    alert('Product not found.');
+                }
+            },
+            error: function(xhr) {
+                // Handle any errors
+                console.error(xhr);
+            }
+        });
+    });
+});
+
+// Function to remove a product from the table
+function removeProduct(productId) {
+    // Logic to remove the product from the table (you can implement confirmation here)
+    $(`#product-table-body tr:has(td:contains(${productId}))`).remove();
+}
+</script>
+
 
 
 @endsection

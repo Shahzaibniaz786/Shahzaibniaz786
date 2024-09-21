@@ -87,7 +87,9 @@
                                     </td>
 
                                     <td class="table-action">
-                                    <a href="javascript:void(0)"  data-id="{{ $customer->id }}" class="action-icon text-success" data-bs-toggle="modal" data-bs-target="#edit-modal"> <i class="mdi mdi-square-edit-outline"></i></a>      
+                                    <a href="javascript:void(0)"  data-id="{{ $customer->id }}" class="action-icon text-success" data-bs-toggle="modal" data-bs-target="#edit-modal"> <i class="mdi mdi-square-edit-outline"></i></a>    
+                                    <a href="{{ route('customer.delete', $customer->id) }}"><i class="mdi mdi-trash-can-outline"></i></a>  
+                                      
                                     </td>
                                 </tr>
                                 @endforeach
@@ -113,69 +115,76 @@
     
     <!-- Standard modal for edit supplier  -->
     <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="edit-modalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="edit-modalLabel">Edit Supplier</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
                 </div>
-                    <form action="{{ route('update.supplier') }}" method="post">
-                        @csrf
-                        <input type="hidden" name="supplierId" id="supplier-id-field">
-                        <div class="modal-body">
-                            <div class="row mb-2">
-                                <div class="col-sm-6">
-                                    <div class="mb-3">
-                                        <label for="example-input-normal" class="form-label">Supplier Name</label>
-                                        <input type="text" id="name" name="name" class="form-control">
-                                        @error('name')
-                                        <p class="text-danger mt-2">{{ $message }}</p>
-                                        @enderror
-                                    </div>
+                    <form action="{{route('update.customer')}}" method="post">
+                @csrf
+                <input type="hidden" name="customerId" id="customer-id-field">
+                <div class="modal-body">
+                    <div class="row">
+                            <div class="mb-3 col-lg-4">
+                                <label for="name" class="mb-2"> Name</label>
+                                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Add product">
+                                @error('name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="mb-3">
-                                        <label for="example-input-normal" class="form-label">Supplier Email</label>
-                                        <input type="text" id="email" name="email" class="form-control">
-                                        @error('email')
-                                        <p class="text-danger mt-2">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="mb-3">
-                                        <label for="example-input-normal" class="form-label">Phone</label>
-                                        <input type="text" id="phone" name="phone" class="form-control">
-                                        @error('phone')
-                                        <p class="text-danger mt-2">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="mb-3">
-                                        <label for="example-input-normal" class="form-label">Company Name <span>Optional</span></label>
-                                        <input type="text" id="company_name" name="company_name" class="form-control">
-                                        @error('company_name')
-                                        <p class="text-danger mt-2">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="mb-3">
-                                        <label for="example-input-normal" class="form-label">Address</label>
-                                        <input type="text" id="address" name="address" class="form-control">
-                                        @error('address')
-                                        <p class="text-danger mt-2">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                </div>
+                                @enderror
                             </div>
+                            <div class="mb-3 col-lg-4">
+                                <label for="email" class="mb-2">Email</label>
+                                <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="Enter unit">
+                                @error('email')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3 col-lg-4">
+                                <label for="item_type" class="mb-2">Contacts</label>
+                                <input type="number" name="contact" id="contact" class="form-control @error('contact') is-invalid @enderror" placeholder="Enter type">
+                                @error('contact')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
                         </div>
+
+                        <div class="row">
+                             <div class="mb-3 col-lg-4">
+                                <label for="address" class="mb-2">Address</label>
+                                <input type="text" name="address" id="address" class="form-control @error('address') is-invalid @enderror" placeholder="Enter type">
+                                @error('address')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3 col-lg-4">
+                                <label for="opening_balance" class="mb-2">Opening balance</label>
+                                <input type="number" name="opening_balance" id="opening_balance" class="form-control @error('opening_balance') is-invalid @enderror" placeholder="Enter type">
+                                @error('opening_balance')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                        </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Update</button>
                         </div>
-                    </form>
+            </form>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
@@ -192,7 +201,7 @@
     <div class="modal-dialog modal-lg" style="max-width: 83.3333%; margin: 1.75rem auto;">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="standard-modalLabel">Add New Product</h4>
+                <h4 class="modal-title" id="standard-modalLabel">Add New Supplier</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
             </div>
             <form action="{{route('customer.save')}}" method="post">
@@ -253,8 +262,9 @@
 
                         </div>
 
-                        <div class="justify-content-between d-flex">
-                            <button class="btn btn-primary mt-2">submit</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">save</button>
                         </div>
             </form>
         </div><!-- /.modal-content -->
@@ -299,17 +309,17 @@
     $('#edit-modal').on('show.bs.modal', function(event) {
         // console.log('Button clicked!');
         var button = $(event.relatedTarget);
-        var supplier = button.data('id'); 
-        $(this).find('#supplier-id-field').val(supplier);
+        var customer = button.data('id'); 
+        $(this).find('#customer-id-field').val(customer);
         $.ajax({
             type: 'GET',
-            url: 'get-supplier/' + supplier,
+            url: 'get-customer/' + customer,
         }).done(function(data) {
-            $('#name').val(data.data.name);
-            $('#phone').val(data.data.phone);
+            $('#name').val(data.data.customer_name);
             $('#email').val(data.data.email);
-            $('#company_name').val(data.data.company_name);
+            $('#contact').val(data.data.contact);
             $('#address').val(data.data.address);
+            $('#opening_balance').val(data.data.opening_balance);
             $('#edit-modal').modal('show'); 
         });
     });

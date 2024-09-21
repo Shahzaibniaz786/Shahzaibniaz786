@@ -79,7 +79,8 @@
                                     </td>
 
                                     <td class="table-action">
-                                    <a href="javascript:void(0)"  data-id="{{ $supplier->id }}" class="action-icon text-success" data-bs-toggle="modal" data-bs-target="#edit-modal"> <i class="mdi mdi-square-edit-outline"></i></a>      
+                                    <a href="javascript:void(0)"  data-id="{{ $supplier->id }}" class="action-icon text-success" data-bs-toggle="modal" data-bs-target="#edit-modal"> <i class="mdi mdi-square-edit-outline"></i></a>  
+                                    <a href="{{ route('supplier.delete', $supplier->id) }}"><i class="mdi mdi-trash-can-outline"></i></a>    
                                     </td>
                                 </tr>
                                 @endforeach

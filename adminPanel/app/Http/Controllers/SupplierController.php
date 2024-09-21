@@ -83,4 +83,15 @@ class SupplierController extends Controller
         $parties = Supplier::paginate($items);
         return $parties;
     }
+
+    public function delete_supplier(Request $request, $id)
+    {
+        $del_supplier = Supplier::find($id);
+
+        $result = $del_supplier->delete();
+        if ($result) {
+            return redirect()->back()->with(['success' => 'Supplier Deleted Successfully']);
+        }
+        return redirect()->back()->with(['error' => 'Something Went Wrong Try Again']);
+    }
 }

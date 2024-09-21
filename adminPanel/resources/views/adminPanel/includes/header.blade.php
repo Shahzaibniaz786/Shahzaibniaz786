@@ -219,7 +219,7 @@ $agent_data = Auth::user()->img;
                         <div class="collapse" id="purchaseNav">
                             <ul class="side-nav-second-level">
                                 <li>
-                                    <a href="">Purchase</a>
+                                    <a href="{{route('purchase.form')}}">Purchase</a>
                                 </li>
 
                             </ul>

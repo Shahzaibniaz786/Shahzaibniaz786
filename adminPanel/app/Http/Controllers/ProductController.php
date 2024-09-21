@@ -33,19 +33,22 @@ class ProductController extends Controller
             'opening_stock' => $request->input('opening_stock'),
         ]);
 
-        Product_stock::create([
-            'product_id' => $product->id,
-            'stock' => $request->input('opening_stock'),
-        ]);
-
-        return redirect()->back()->with('success', 'Product added successfully!');
+        if ($product) {
+            Product_stock::create([
+                'product_id' => $product->id,
+                'stock' => $request->input('opening_stock'),
+            ]);
+            return redirect()->back()->with('success', 'Product added successfully!');
+        } else {
+            return redirect()->with('success', 'Something went wrong! Product could not be added.');
+        }
     }
 
 
     public function get_product($id)
     {
-        $supplier = Product::find($id);
-        return response()->json(['data' => $supplier]);
+        $products = Product::find($id);
+        return response()->json(['data' => $products]);
     }
 
 
@@ -63,6 +66,17 @@ class ProductController extends Controller
             ]);
         if ($result) {
             return redirect()->back()->with(['success' => 'Product Updated Successfully']);
+        }
+        return redirect()->back()->with(['error' => 'Something Went Wrong Try Again']);
+    }
+
+    public function delete_product(Request $request, $id)
+    {
+        $del_product = Product::find($id);
+
+        $result = $del_product->delete();
+        if ($result) {
+            return redirect()->back()->with(['success' => 'Product Deleted Successfully']);
         }
         return redirect()->back()->with(['error' => 'Something Went Wrong Try Again']);
     }
