@@ -48,129 +48,122 @@
                     </div>
 
                     <div class="form">
-                        <form id="addProductForm" action="{{ route('Fetch.product') }}" method="post">
-                @csrf
-                <div class="modal-body">
-                    <div class="row">
-                            <div class="mb-3 col-lg-4">
-                                <label for="date" class="mb-2">Date</label>
-                                <input type="date" name="date" id="date" class="form-control @error('date') is-invalid @enderror" placeholder="Add date" value="{{ old('date') }}">
-                                @error('date')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                            <div class="mb-3 col-lg-4">
-                                <label for="supplier_name" class="mb-2">Supplier name</label>
-                                <input type="text" name="supplier_name" id="supplier_name" class="form-control @error('supplier_name') is-invalid @enderror" placeholder="Add product"value="{{ old('supplier_name') }}">
-                                @error('supplier_name')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                            
-                            <div class="mb-3 col-lg-4">
-                               <label for="total_bill" class="mb-2">Total bill</label>
-                               <input type="number" name="total_bill" id="total_bill" class="form-control @error('total_bill') is-invalid @enderror" placeholder="0" value="{{ old('total_bill') }}">
-                               @error('total_bill')
-                               <div class="invalid-feedback">
-                                   {{ $message }}
-                               </div>
-                               @enderror
-                           </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="mb-3 col-lg-4">
-                               {{-- <label for="total_bill" class="mb-2">Adjustment</label> --}}
-                               <input type="hidden" name="adjustment" id="adjustment" class="form-control @error('adjustment') is-invalid @enderror" placeholder="Enter type" value="{{ old('adjustment') }}">
-                               @error('adjustment')
-                               <div class="invalid-feedback">
-                                   {{ $message }}
-                               </div>
-                               @enderror
-                           </div>
-                            <div class="mb-3 col-lg-4">
-                               <label for="total_bill" class="mb-2">Adjustment</label>
-                               <input type="number" name="adjustment" id="adjustment" class="form-control @error('adjustment') is-invalid @enderror" placeholder="0" value="{{ old('adjustment') }}">
-                               @error('adjustment')
-                               <div class="invalid-feedback">
-                                   {{ $message }}
-                               </div>
-                               @enderror
-                           </div>
-                            <div class="mb-3 col-lg-4">
-                               <label for="total_bill" class="mb-2">Net Payable</label>
-                               <input type="number" name="net_payable" id="net_payable" class="form-control @error('net_payable') is-invalid @enderror" placeholder="0" value="{{ old('net_payable') }}">
-                               @error('net_payable')
-                               <div class="invalid-feedback">
-                                   {{ $message }}
-                               </div>
-                               @enderror
-                           </div>
-
-                           <div class="row">
-                                <div class="mb-3 col-lg-10">
-                                    <label for="total_bill" class="mb-2">Select Product</label>
-                                    <select name="select_product" id="select_product" class="form-control @error('select_product') is-invalid @enderror"  value="{{ old('select_product') }}">
-                                        <option value="">Select product</option>
-                                        @foreach ($products as $product)
-                                        <option value="{{$product->id}}">{{$product->product_name}}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('select_product')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                                
-                                <div class=" col-lg-2 d-flex align-self-center justify-content-end">
-                                    <button type="submit" class="btn btn-warning">Add Product</button>
-                                </div>
-                            </div>
-
-
-
-                        </div>
-
-                        
-
-
+            <form id="purchaseForm" action="{{ route('save.purchase') }}" method="post">
+    @csrf
+    <div class="modal-body">
+        <div class="row">
+            <div class="mb-3 col-lg-4">
+                <label for="date" class="mb-2">Date</label>
+                <input type="date" name="date" id="date" class="form-control @error('date') is-invalid @enderror" placeholder="Add date" value="{{ old('date') }}">
+                @error('date')
+                <div class="invalid-feedback">
+                    {{ $message }}
                 </div>
-                
-            </form>
-                    </div>
+                @enderror
+            </div>
+            <div class="mb-3 col-lg-4">
+                <label for="supplier_name" class="mb-2">Supplier name</label>
+                <select name="supplier_name" id="supplier_name" class="form-control @error('supplier_name') is-invalid @enderror" value="{{ old('supplier_name') }}">
+                    <option value="">Select supplier</option>
+                    @foreach ($suppliers as $supplier)
+                    <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                    @endforeach
+                </select>
 
-                    
-                </div> <!-- end card-body-->
-            </div> <!-- end card-->
-        </div> <!-- end col -->
+                @error('supplier_name')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="mb-3 col-lg-4">
+                <label for="total_bill" class="mb-2">Total bill</label>
+                <input type="number" name="total_bill" id="total_bill" class="form-control @error('total_bill') is-invalid @enderror" placeholder="0" value="{{ old('total_bill') }}">
+                @error('total_bill')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="mb-3 col-lg-4">
+                <input type="hidden" name="adjustment" id="adjustment" class="form-control @error('adjustment') is-invalid @enderror" value="{{ old('adjustment') }}">
+                @error('adjustment')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="mb-3 col-lg-4">
+                <label for="adjustment" class="mb-2">Adjustment</label>
+                <input type="number" name="adjustment" id="adjustment" class="form-control @error('adjustment') is-invalid @enderror" placeholder="0" value="{{ old('adjustment') }}">
+                @error('adjustment')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="mb-3 col-lg-4">
+                <label for="net_payable" class="mb-2">Net Payable</label>
+                <input type="number" name="net_payable" id="net_payable" class="form-control @error('net_payable') is-invalid @enderror" placeholder="0" value="{{ old('net_payable') }}">
+                @error('net_payable')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="mb-3 col-lg-10">
+                <label for="select_product" class="mb-2">Select Product</label>
+                <select name="select_product" id="select_product" class="form-control @error('select_product') is-invalid @enderror" value="{{ old('select_product') }}">
+                    <option value="">Select product</option>
+                    @foreach ($products as $product)
+                    <option value="{{ $product->id }}">{{ $product->product_name }}</option>
+                    @endforeach
+                </select>
+                @error('select_product')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="col-lg-2 d-flex align-self-center justify-content-end">
+                <button type="button" id="addProduct" class="btn btn-warning">Add Product</button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table id="product-table" class="table table-sm table-centered w-100 nowrap">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Stock</th>
+                        <th>Cost Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                        <th style="width: 85px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="product-table-body">
+                    <!-- Dynamically added products will appear here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div id="hidden-product-data">
+            <!-- Hidden inputs will be appended here -->
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-warning">Submit</button>
+        </div>
     </div>
-
-                    <div class="table-responsive">
-                        <table id="product-table" class="table table-sm table-centered w-100 nowrap">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Stock</th>
-                                    <th>Cost price</th>
-                                    <th>Qty</th>
-                                    <th>Total</th>
-                                    <th style="width: 85px;">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="product-table-body">
-                                <!-- Dynamically added products will appear here -->
-                            </tbody>
-                        </table>
-                    </div>
-
-
+</form>
 
 
  
@@ -354,46 +347,56 @@
 
 <script>
 $(document).ready(function() {
-    $('#addProductForm').on('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission
+    $('#addProduct').on('click', function(event) {
+        event.preventDefault(); 
 
         // Get the selected product ID
         const selectedProductId = $('#select_product').val();
         
-        // Perform an AJAX request to fetch the product details
         $.ajax({
-            url: "{{ route('fetch.product.details') }}", // Route to fetch product details
+            url: "{{ route('fetch.product.details') }}", 
             method: 'POST',
             data: {
                 product_id: selectedProductId,
                 _token: '{{ csrf_token() }}'
             },
             success: function(response) {
-                // Assuming response contains the product details
                 if (response.success) {
                     const product = response.data;
 
-                    // Append the new row to the product table
                     $('#product-table-body').append(`
-                        <tr>
-                            <td>${product.id}</td>
-                            <td>${product.name}</td>
-                            <td>${product.stock}</td>
-                            <td>${product.cost_price}</td>
-                            <td>${product.qty}</td>
-                            <td>${product.total}</td>
+                            <tr>
+                                <td><input type="number" name="pro_id[]" id="" value="${product.id}" readonly style="outline: none; border: none; background: transparent; pointer-events: none;" />
+                            </td>
+                            <td>
+                                <input type="text" name="pro_name[]" id="" value="${product.name}" readonly style="outline: none; border: none; background: transparent; pointer-events: none;" />
+
+                            </td>
+                            <td>
+                                <input type="number" name="stock[]" id="" value="${product.stock}" readonly style="outline: none; border: none; background: transparent; pointer-events: none;" />
+
+                            </td>
+                            <td>
+                                <input type="number" name="cost_price[]" id="cost_price_${product.id}" value="" oninput="calculateTotal(${product.id})" />
+                            </td>
+                            <td>
+                                <input type="number" name="qty[]" id="quantity_${product.id}" value="" oninput="calculateTotal(${product.id})" />
+                            </td>
+                            <td>
+                                <input type="number" name="total[]" id="total_${product.id}" value="" readonly style="outline: none; border: none; background: transparent; pointer-events: none;" />
+
+                            </td>
                             <td>
                                 <button class="btn btn-danger" onclick="removeProduct(${product.id})">Remove</button>
                             </td>
                         </tr>
+
                     `);
                 } else {
-                    // Handle error if product not found
                     alert('Product not found.');
                 }
             },
             error: function(xhr) {
-                // Handle any errors
                 console.error(xhr);
             }
         });
@@ -402,10 +405,21 @@ $(document).ready(function() {
 
 // Function to remove a product from the table
 function removeProduct(productId) {
-    // Logic to remove the product from the table (you can implement confirmation here)
     $(`#product-table-body tr:has(td:contains(${productId}))`).remove();
 }
+
+
+
+function calculateTotal(productId) {
+    const costPrice = document.getElementById(`cost_price_${productId}`).value;
+    const quantity = document.getElementById(`quantity_${productId}`).value;
+    
+    const total = costPrice * quantity;
+    document.getElementById(`total_${productId}`).value = total.toFixed(2); // Total ko 2 decimal tak round karega
+}
 </script>
+
+
 
 
 

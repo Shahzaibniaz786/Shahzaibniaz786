@@ -165,7 +165,7 @@
 
    <!-- Standard modal -->
 <div id="standard-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="standard-modalLabel" aria-hidden="true">
-    <div class="modal-dialog " >
+    <div class="modal-dialog modal-xl" >
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="standard-modalLabel">Add New Product</h4>
@@ -204,6 +204,27 @@
                                @enderror
                            </div>
 
+                        </div>
+
+                        <div class="row">
+                            <div class="mb-3 col-lg-4">
+                               <label for="cost_price" class="mb-2">cost price</label>
+                               <input type="number" name="cost_price" id="cost_price" class="form-control @error('cost_price') is-invalid @enderror" placeholder="Enter type" value="{{ old('cost_price') }}">
+                               @error('cost_price')
+                               <div class="invalid-feedback">
+                                   {{ $message }}
+                               </div>
+                               @enderror
+                           </div>
+                            <div class="mb-3 col-lg-4">
+                               <label for="retail_price" class="mb-2">Retail Price</label>
+                               <input type="number" name="retail_price" id="retail_price" class="form-control @error('retail_price') is-invalid @enderror" placeholder="Enter type" value="{{ old('retail_price') }}">
+                               @error('retail_price')
+                               <div class="invalid-feedback">
+                                   {{ $message }}
+                               </div>
+                               @enderror
+                           </div>
                         </div>
 
                         

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Product_rate;
 use App\Models\Product_stock;
 use App\Models\Supplier;
 
@@ -37,6 +38,11 @@ class ProductController extends Controller
             Product_stock::create([
                 'product_id' => $product->id,
                 'stock' => $request->input('opening_stock'),
+            ]);
+            Product_rate::create([
+                'product_id' => $product->id,
+                'cost_price' => $request->input('cost_price'),
+                'retail_price' => $request->input('retail_price'),
             ]);
             return redirect()->back()->with('success', 'Product added successfully!');
         } else {

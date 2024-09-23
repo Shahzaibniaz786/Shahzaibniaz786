@@ -85,7 +85,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/update-customer', [CustomerController::class, 'update_customer'])->name('update.customer');
     Route::get('/delete-customer/{id}', [CustomerController::class, 'delete_customer'])->name('customer.delete');
     Route::get('/purchase', [PurchaseController::class, 'show_purchase_page'])->name('purchase.form');
-    Route::post('/fetch-product-details', [ProductController::class, 'fetchProductDetails'])->name('fetch.product.details');
+    Route::post('/fetch-product-details', [PurchaseController::class, 'fetchProductDetails'])->name('fetch.product.details');
+    Route::post('/save-purchase', [PurchaseController::class, 'save_purchase'])->name('save.purchase');
     
     
 
